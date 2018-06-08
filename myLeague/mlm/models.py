@@ -3,11 +3,11 @@ from django.db import models
 # Create your models here.
 
 class Season(models.Model):
-	name = models.CharField(max_length-200)
+	name = models.CharField(max_length=200)
 	draft_time = models.DateTimeField()
 	
 class Team(models.Model):
-	name = models.CharField(max_length-200)
+	name = models.CharField(max_length=200)
 	season = models.ForeignKey(Season, unique=True)
 	user_1 = models.ForeignKey(User, unique=True)
 	user_2 = models.ForeignKey(User, unique=True)
@@ -16,7 +16,7 @@ class Team(models.Model):
 	RPG = models.DecimalField()
 	PPG = models.DecimalField()
 	SPF = models.DecimalField()
-	FG% = models.DecimalField()
+	FG_PCT = models.DecimalField()
 	
 class Game(models.Model):
 	season = models.ForeignKey(Season, unique=True)
@@ -28,27 +28,30 @@ class Game(models.Model):
 	
 class LeaderboardPlayer(models.Model):
 	season = models.ForeignKey(Season, unique=True)
-	name = models.CharField(max_length-200)
-	category = models.CharField(max_length-200)
+	order = models.IntegerField()
+	name = models.CharField(max_length=200)
+	category = models.CharField(max_length=200)
 	APG = models.DecimalField()
 	RPG = models.DecimalField()
 	PPG = models.DecimalField()
 	SPF = models.DecimalField()
-	FG% = models.DecimalField()
+	FG_Perc = models.DecimalField()
 	
 class MockDraftPick(models.Model):
 	season = models.ForeignKey(Season, unique=True)
-	round = models.IntegerField()
+	draft_round = models.IntegerField()
+	draft_pick_number = models.IntegerField()
 	team = models.ForeignKey(Team, unique=True)
-	player_name = models.CharField(max_length-200)
+	player_name = models.CharField(max_length=200)
 	
 class DraftPick(models.Model):
 	season = models.ForeignKey(Season, unique=True)
-	round = models.IntegerField()
+	draft_round = models.IntegerField()
+	draft_pick_number = models.IntegerField()
 	team = models.ForeignKey(Team, unique=True)
-	player_name = models.CharField(max_length-200)
+	player_name = models.CharField(max_length=200)
 	
 class Roster(models.Model):
 	season = models.ForeignKey(Season, unique=True)
 	team = models.ForeignKey(Team, unique=True)
-	player_name = models.CharField(max_length-200)
+	player_name = models.CharField(max_length=200)
