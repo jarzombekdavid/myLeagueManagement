@@ -16,7 +16,7 @@ def seasons(request):
 
 
 def create_season(request):
-	
+
 	SeasonFormSet = modelformset_factory(Season, fields=('name', 'draft_date'))
     if request.method == 'POST':
         formset = SeasonFormSet(request.POST, request.FILES)
@@ -25,4 +25,4 @@ def create_season(request):
             # do something.
     else:
         formset = SeasonFormSet()
-    return render(request, 'manage_authors.html', {'formset': formset})
+    return render(request, 'create_season.html', {'formset': formset})
